@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import ".//App.css";
+import { FaUpload } from "react-icons/fa6";
 
 const App = () => {
   const [image, setImage] = useState(null);
@@ -51,31 +53,53 @@ const App = () => {
     setHeight(newHeight);
     resizeImage(width, newHeight);
   };
+  //Görseli indirmek için
 
+  const downloadImage = () => {
+    const canvas = canvasRef.current;
+    const link = document.createElement("a");
+    link.download = "resized-image.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
   return (
-    <div className="resizer">
-      <input
-        type="file"
-        className="resizer__file"
-        onChange={handleFileChange}
-      />
-      <div className="dimensions">
+    <>
+      <h1>Resize an image</h1>
+      <p>
+        Resize JPG, PNG, SVG or GIF by defining new height and width pixels.
+        Change image dimensions in bulk.
+      </p>
+      <div className="resizer">
         <input
-          type="number"
-          className="resizer__input resizer__input--width"
-          value={width}
-          onChange={handleWidthChange}
+          type="file"
+          className="resizer__file"
+          onChange={handleFileChange}
         />
-        x
-        <input
-          type="number"
-          className="resizer__input resizer__input--height"
-          value={height}
-          onChange={handleHeightChange}
-        />
+
+        <div className="dimensions">
+          <input
+            type="number"
+            className="resizer__input resizer__input--width"
+            value={width}
+            onChange={handleWidthChange}
+          />
+          x
+          <input
+            type="number"
+            className="resizer__input resizer__input--height"
+            value={height}
+            onChange={handleHeightChange}
+          />
+        </div>
+        {!image && <FaUpload className="upload-icon" />}
+        <div className="image-and-btn">
+          <canvas ref={canvasRef} className="canvas"></canvas>
+          <button onClick={downloadImage} className="btn">
+            Download Image
+          </button>
+        </div>
       </div>
-      <canvas className="resizer__canvas" ref={canvasRef}></canvas>
-    </div>
+    </>
   );
 };
 
