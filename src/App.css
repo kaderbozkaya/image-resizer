@@ -43,40 +43,7 @@
 .resizer {
 background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='3' ry='8' stroke='%235290FFFF' stroke-width='4' stroke-dasharray='6%2c 12' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
   padding: 20px;
-}
-.canvas {
-  max-width: 200px;
-  margin: 10px;
-}
-.resizer__file {
-  margin: 4px;
-  padding: 3px;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
 
-}
-.dimensions {
-  display: flex;
-}
-
-.resizer__input {
-margin: 4px;
-  width: 75px;
-  padding: 5px;
-}
-.image-and-btn {
-
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-.btn {
-  margin: 10px;
-}
-.upload-icon {
-  width: 200px;
-  height: 200px;
 }
 .header {
   display: flex;
@@ -100,4 +67,27 @@ margin: 4px;
   width: 50%;
 
   padding: 2px;
+}
+
+.canvas {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.resizer-input {
+margin: 4px;
+  width: 75px;
+  padding: 5px;
+}
+
+.btn {
+  margin: 10px;
+  padding: 10px;
+
+}
+.upload-icon {
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
 }
