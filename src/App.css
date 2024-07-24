@@ -40,11 +40,7 @@
 .read-the-docs {
   color: #888;
 }
-.resizer {
-background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='3' ry='8' stroke='%235290FFFF' stroke-width='4' stroke-dasharray='6%2c 12' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
-  padding: 20px;
 
-}
 .header {
   display: flex;
   align-items: center;
@@ -68,12 +64,28 @@ background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' 
 
   padding: 2px;
 }
-
+.resizer {
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='3' ry='8' stroke='%235290FFFF' stroke-width='4' stroke-dasharray='6%2c 12' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
+    padding: 20px;
+    max-width: 800px;
+    max-height: 300px;
+  
+  }
 .canvas {
   max-width: 200px;
   max-height: 200px;
 }
+.upload-icon {
+margin: 20px;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+}
 
+.browse {
+  color: blue;
+  cursor: pointer;
+}
 .resizer-input {
 margin: 4px;
   width: 75px;
@@ -84,10 +96,4 @@ margin: 4px;
   margin: 10px;
   padding: 10px;
 
-}
-.upload-icon {
-  margin: auto;
-  width: 200px;
-  height: 200px;
-  cursor: pointer;
 }

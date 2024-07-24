@@ -108,7 +108,9 @@ const App = () => {
           {!image && (
             <>
               <FaUpload className="upload-icon" />
-              <p>Drop your images here or browse.</p>
+              <h3>
+                Drop your images here or <span className="browse">browse</span>
+              </h3>
             </>
           )}
         </div>
