@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import ".//App.css";
 import { FaUpload } from "react-icons/fa6";
+import logo from "./assets/unnamed.png";
 
 const App = () => {
   const [image, setImage] = useState(null);
@@ -64,6 +65,17 @@ const App = () => {
   };
   return (
     <>
+      <div className="header">
+        <div className="logo">
+          <img src={logo} alt="" className="logo-image" />
+          <p>Canvas Image Resizer</p>
+        </div>
+        <div className="links">
+          <a href="">Blog</a>
+          <a href="">How it works?</a>
+          <a href="">Contact Us</a>
+        </div>
+      </div>
       <h1>Resize an image</h1>
       <p>
         Resize JPG, PNG, SVG or GIF by defining new height and width pixels.
