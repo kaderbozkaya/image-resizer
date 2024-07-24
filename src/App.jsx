@@ -107,39 +107,40 @@ const App = () => {
         Change image dimensions in bulk.
       </p>
       <div className="resizer">
-        <div {...getRootProps({ className: "dropzone" })}>
-          <input {...getInputProps()} />
-          {!image && <FaUpload className="upload-icon" />}
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        </div>
-        <input
+        {/* <input
           type="file"
           className="resizer__file"
           onChange={handleFileChange}
-        />
-        <div className="dimensions">
-          <input
-            type="number"
-            className="resizer__input resizer__input--width"
-            value={width}
-            onChange={handleWidthChange}
-          />
-          x
-          <input
-            type="number"
-            className="resizer__input resizer__input--height"
-            value={height}
-            onChange={handleHeightChange}
-          />
+        /> */}
+
+        <div {...getRootProps({ className: "dropzone" })}>
+          <input {...getInputProps()} />
+          {!image && <FaUpload className="upload-icon" />}
+          <p>Drop your images here or browse.</p>
         </div>
         {/* {!image && <FaUpload className="upload-icon" />} */}
         <div className="image-and-btn">
           <canvas ref={canvasRef} className="canvas"></canvas>
-          <button onClick={downloadImage} className="btn">
-            Download Image
-          </button>
         </div>
       </div>
+      <div className="dimensions">
+        <input
+          type="number"
+          className="resizer__input resizer__input--width"
+          value={width}
+          onChange={handleWidthChange}
+        />
+        x
+        <input
+          type="number"
+          className="resizer__input resizer__input--height"
+          value={height}
+          onChange={handleHeightChange}
+        />
+      </div>
+      <button onClick={downloadImage} className="btn">
+        Download Image
+      </button>
     </>
   );
 };
