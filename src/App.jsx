@@ -1,16 +1,27 @@
-import React, { useState, useRef } from "react";
-import ".//App.css";
-import { FaUpload } from "react-icons/fa6";
+import React, { useState, useRef, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import "./App.css";
+import { FaUpload } from "react-icons/fa";
 import logo from "./assets/unnamed.png";
 
 const App = () => {
   const [image, setImage] = useState(null);
-  const [width, setWidth] = useState(0); //genişliği set etmek için
-  const [height, setHeight] = useState(0); //yüksekliği set etmek için
-  const originalWidthToHeightRatio = useRef(1); //orijinal genişlik yükseklik oranını saklamak için referans
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const originalWidthToHeightRatio = useRef(1);
   const canvasRef = useRef(null);
 
-  //seçilen dosyayı okur ve openImage fonksiyonunu çağırarak resmi açar.
+  const onDrop = useCallback((acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => openImage(reader.result);
+      reader.readAsDataURL(file);
+    }
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -19,8 +30,6 @@ const App = () => {
       reader.readAsDataURL(file);
     }
   };
-
-  //yüklenen resmi bir Image nesnesi olarak açar, orijinal genişlik/yükseklik oranını kaydeder ve resmi yeniden boyutlandırır.
 
   const openImage = (src) => {
     const img = new Image();
@@ -33,7 +42,6 @@ const App = () => {
     img.src = src;
     setImage(img);
   };
-  //görseli verilen yeni genişlik ve yükseklik ile yeniden boyutlandırır ve canvasa çizer
 
   const resizeImage = (newWidth, newHeight) => {
     const canvas = canvasRef.current;
@@ -42,19 +50,18 @@ const App = () => {
     canvas.height = newHeight;
     ctx.drawImage(image, 0, 0, newWidth, newHeight);
   };
-  //görseli yeni genişlikle yeniden boyutlandırır.
+
   const handleWidthChange = (event) => {
     const newWidth = Number(event.target.value);
     setWidth(newWidth);
     resizeImage(newWidth, height);
   };
-  //görseli yeni yükseklikle yeniden boyutlandırır.
+
   const handleHeightChange = (event) => {
     const newHeight = Number(event.target.value);
     setHeight(newHeight);
     resizeImage(width, newHeight);
   };
-  //Görseli indirmek için
 
   const downloadImage = () => {
     const canvas = canvasRef.current;
@@ -67,7 +74,7 @@ const App = () => {
     ).data;
 
     const isEmpty = canvasData.every((pixel, index) => {
-      return index % 4 === 3 ? pixel === 0 : true; // Check alpha channel only
+      return index % 4 === 3 ? pixel === 0 : true;
     });
 
     if (isEmpty) {
@@ -100,12 +107,16 @@ const App = () => {
         Change image dimensions in bulk.
       </p>
       <div className="resizer">
+        <div {...getRootProps({ className: "dropzone" })}>
+          <input {...getInputProps()} />
+          {!image && <FaUpload className="upload-icon" />}
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        </div>
         <input
           type="file"
           className="resizer__file"
           onChange={handleFileChange}
         />
-
         <div className="dimensions">
           <input
             type="number"
@@ -121,7 +132,7 @@ const App = () => {
             onChange={handleHeightChange}
           />
         </div>
-        {!image && <FaUpload className="upload-icon" />}
+        {/* {!image && <FaUpload className="upload-icon" />} */}
         <div className="image-and-btn">
           <canvas ref={canvasRef} className="canvas"></canvas>
           <button onClick={downloadImage} className="btn">
