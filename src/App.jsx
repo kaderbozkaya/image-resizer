@@ -58,11 +58,29 @@ const App = () => {
 
   const downloadImage = () => {
     const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+    const canvasData = context.getImageData(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    ).data;
+
+    const isEmpty = canvasData.every((pixel, index) => {
+      return index % 4 === 3 ? pixel === 0 : true; // Check alpha channel only
+    });
+
+    if (isEmpty) {
+      alert("Canvas is empty. No image to download.");
+      return;
+    }
+
     const link = document.createElement("a");
     link.download = "resized-image.png";
     link.href = canvas.toDataURL("image/png");
     link.click();
   };
+
   return (
     <>
       <div className="header">
